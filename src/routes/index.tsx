@@ -381,81 +381,14 @@ function HomePage() {
         </div>
       </Section>
 
-      {/* FEATURED WORK */}
+      {/* CONCEPT PRODUCTS & INNOVATION LABS */}
       <Section
         tone="surface"
-        eyebrow="Featured Work"
-        title="Products we've engineered"
-        description="A glimpse of the platforms, apps, and intelligence layers we've built with our partners."
+        eyebrow="Concept Products & Innovation Labs"
+        title="Featured product case studies"
+        description="A curated look at products engineered inside Govitrix — showcasing how we approach product thinking, architecture, and delivery across industries."
       >
-        <div className="grid gap-6 lg:grid-cols-2">
-          {works.map((w) => (
-            <article
-              key={w.name}
-              className="group relative overflow-hidden rounded-3xl border border-border bg-background shadow-card transition-all hover:shadow-elevated"
-            >
-              <div className={`relative h-56 bg-gradient-to-br ${w.accent} overflow-hidden`}>
-                <div aria-hidden className="absolute inset-0 hairline-grid opacity-50" />
-                <div className="absolute inset-0 flex items-center justify-center p-8">
-                  <div className="w-full max-w-sm rounded-2xl border border-border bg-background/95 p-4 shadow-elevated backdrop-blur">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
-                        {w.industry}
-                      </span>
-                      <span className="inline-flex items-center gap-1 rounded-full bg-success/10 px-2 py-0.5 text-[10px] font-semibold text-success">
-                        <span className="size-1.5 rounded-full bg-success" /> Live
-                      </span>
-                    </div>
-                    <p className="mt-3 font-display text-lg font-bold text-ink">{w.name}</p>
-                    <div className="mt-3 grid grid-cols-3 gap-2">
-                      <div className="col-span-2 rounded-lg bg-surface p-2">
-                        <div className="h-1.5 w-2/3 rounded bg-accent/40" />
-                        <div className="mt-1.5 h-1.5 w-1/2 rounded bg-border-strong" />
-                        <div className="mt-1.5 h-1.5 w-3/4 rounded bg-border-strong" />
-                      </div>
-                      <div className="rounded-lg bg-primary p-2 text-primary-foreground">
-                        <p className="text-[10px] font-medium opacity-70">{w.stat.label}</p>
-                        <p className="text-base font-bold leading-tight text-success">
-                          {w.stat.value}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-7">
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-accent">
-                      {w.industry}
-                    </p>
-                    <h3 className="mt-1.5 font-display text-2xl font-semibold text-ink">{w.name}</h3>
-                  </div>
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-ink-soft">{w.summary}</p>
-                <div className="mt-5 flex flex-wrap items-center justify-between gap-4">
-                  <div className="flex flex-wrap gap-1.5">
-                    {w.tags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-border bg-surface px-2.5 py-0.5 text-[11px] font-medium text-ink-soft"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <Link
-                    to="/case-studies"
-                    className="inline-flex items-center gap-1 text-sm font-semibold text-ink transition-colors hover:text-accent"
-                  >
-                    View case study <ArrowUpRight className="size-4" />
-                  </Link>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+        <ConceptProductsShowcase />
 
         <div className="mt-10 text-center">
           <Link
