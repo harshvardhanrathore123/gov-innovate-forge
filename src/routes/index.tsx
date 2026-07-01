@@ -79,44 +79,6 @@ const stats = [
   { value: 22, suffix: "", label: "Countries Targeted" },
 ];
 
-const works = [
-  {
-    name: "Lumenly Health",
-    industry: "Healthcare",
-    summary:
-      "An AI-assisted clinical workflow platform that reduced patient triage time by 42% across 14 hospitals.",
-    tags: ["AI", "HIPAA", "React", "AWS"],
-    accent: "from-accent/15 to-accent/0",
-    stat: { value: "−42%", label: "Triage time" },
-  },
-  {
-    name: "Northvault Finance",
-    industry: "FinTech",
-    summary:
-      "A wealth management SaaS with real-time portfolio analytics, KYC, and compliance-grade reporting.",
-    tags: ["SaaS", "Next.js", "PostgreSQL", "SOC 2"],
-    accent: "from-success/20 to-success/0",
-    stat: { value: "$420M", label: "AUM tracked" },
-  },
-  {
-    name: "Cargolane",
-    industry: "Logistics",
-    summary:
-      "End-to-end shipment visibility platform powering 6,000+ daily routes across 9 countries.",
-    tags: ["Mobile", "Flutter", "GCP", "IoT"],
-    accent: "from-accent/15 to-accent/0",
-    stat: { value: "6k+", label: "Daily routes" },
-  },
-  {
-    name: "Atlas Learn",
-    industry: "Education",
-    summary:
-      "A personalized learning platform with adaptive curriculum and generative-AI tutors for K-12 students.",
-    tags: ["GenAI", "Vue", "Node.js", "Azure"],
-    accent: "from-success/20 to-success/0",
-    stat: { value: "+3.1x", label: "Engagement" },
-  },
-];
 
 const services = [
   {
