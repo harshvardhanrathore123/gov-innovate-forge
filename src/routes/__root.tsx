@@ -97,11 +97,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Govitrix Corporation" },
+      { name: "twitter:title", content: "Govitrix Corporation — From Imagination to Innovation" },
       {
         name: "twitter:description",
         content: "From Imagination to Innovation — product engineering and technology consulting.",
       },
+      { name: "description", content: "Govitrix Elevate is a premium website for Govitrix Corporation, showcasing their product engineering and technology consulting services." },
+      { property: "og:description", content: "Govitrix Elevate is a premium website for Govitrix Corporation, showcasing their product engineering and technology consulting services." },
+      { name: "twitter:description", content: "Govitrix Elevate is a premium website for Govitrix Corporation, showcasing their product engineering and technology consulting services." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2c893b12-8377-42c7-b740-b6efc8576bf8/id-preview-87933d47--ee4c5fc8-d4d5-4988-bb75-0177cb78217c.lovable.app-1782925644319.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/2c893b12-8377-42c7-b740-b6efc8576bf8/id-preview-87933d47--ee4c5fc8-d4d5-4988-bb75-0177cb78217c.lovable.app-1782925644319.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
