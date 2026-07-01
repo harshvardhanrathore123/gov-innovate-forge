@@ -282,20 +282,17 @@ function HomePage() {
       <section aria-label="Trusted by" className="border-b border-border bg-surface py-10">
         <div className="container-page">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-ink-muted">
-            Trusted by ambitious teams worldwide
+            Concept Products & Innovation Labs
           </p>
           <div className="relative mt-6 overflow-hidden">
             <div className="marquee-track flex w-max items-center gap-12 whitespace-nowrap">
               {[...Array(2)].flatMap((_, i) =>
                 [
-                  "NORTHVAULT",
-                  "LUMENLY",
-                  "CARGOLANE",
-                  "ATLAS LEARN",
-                  "HELIOSTACK",
-                  "BLUEFIN",
-                  "NIMBUS RX",
-                  "OBSIDIAN",
+                  "MEDICARE HMS",
+                  "FINBUD",
+                  "APEXSCORE",
+                  "SELLMATE",
+                  "ANAHATA AI",
                 ].map((name) => (
                   <span
                     key={`${i}-${name}`}
