@@ -30,13 +30,19 @@ const team = [
   {
     name: "Harshvardhan Singh Rathore",
     role: "Founder & CEO",
-    bio: "Two decades across product, engineering, and consulting. Leads strategy, partnerships, and delivery.",
+    bio: "Leads company strategy, partnerships, and delivery. Focused on translating business ambition into engineered outcomes.",
+    focus: ["Product Strategy", "Digital Transformation", "Business Growth", "Innovation"],
+    message:
+      "Great software is a business decision before it is a technical one. Our job is to make that decision easy — with senior people, clear thinking, and honest tradeoffs.",
     initials: "HR",
   },
   {
     name: "Ujjwal Vaishnav",
     role: "Co-Founder & CTO",
-    bio: "Systems thinker. Leads engineering excellence, architecture, and platform strategy.",
+    bio: "Leads engineering excellence, architecture, and platform strategy across all Govitrix engagements.",
+    focus: ["Software Architecture", "Product Engineering", "Cloud Technologies", "Technology Innovation"],
+    message:
+      "Every system we ship should be secure, observable, and easy to change. We optimize for long-term maintainability, not short-term velocity — because our clients live with what we build for years.",
     initials: "UV",
   },
 ];
@@ -87,36 +93,46 @@ function AboutPage() {
         </div>
       </Section>
 
-      <Section eyebrow="Leadership" title="Meet the team">
+      <Section eyebrow="Leadership" title="Founder-led, senior by default" description="Meet the people accountable for every engagement.">
         <div className="grid gap-6 md:grid-cols-2">
           {team.map((t) => (
             <div
               key={t.name}
-              className="flex flex-col gap-5 rounded-3xl border border-border bg-background p-8 shadow-soft sm:flex-row"
+              className="flex flex-col gap-6 rounded-3xl border border-border bg-background p-8 shadow-soft"
             >
-              <div className="flex size-24 shrink-0 items-center justify-center rounded-2xl bg-primary font-display text-2xl font-bold text-primary-foreground">
-                {t.initials}
-              </div>
-              <div>
-                <h3 className="font-display text-xl font-semibold text-ink">{t.name}</h3>
-                <p className="mt-0.5 text-sm font-medium text-accent">{t.role}</p>
-                <p className="mt-3 text-sm text-ink-soft">{t.bio}</p>
-                <div className="mt-4 flex items-center gap-2">
-                  <a
-                    href="#"
-                    aria-label="LinkedIn"
-                    className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft hover:text-ink"
-                  >
-                    <Linkedin className="size-4" />
-                  </a>
-                  <a
-                    href="#"
-                    aria-label="Email"
-                    className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft hover:text-ink"
-                  >
-                    <Mail className="size-4" />
-                  </a>
+              <div className="flex items-start gap-5">
+                <div className="flex size-20 shrink-0 items-center justify-center rounded-2xl bg-primary font-display text-2xl font-bold text-primary-foreground">
+                  {t.initials}
                 </div>
+                <div>
+                  <h3 className="font-display text-xl font-semibold text-ink">{t.name}</h3>
+                  <p className="mt-0.5 text-sm font-medium text-accent">{t.role}</p>
+                  <p className="mt-3 text-sm text-ink-soft">{t.bio}</p>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">Focus areas</p>
+                <div className="mt-2 flex flex-wrap gap-1.5">
+                  {t.focus.map((f) => (
+                    <span key={f} className="rounded-full border border-border bg-surface px-2.5 py-1 text-xs font-medium text-ink-soft">
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <blockquote className="rounded-2xl border border-border bg-surface p-5 text-sm italic leading-relaxed text-ink">
+                "{t.message}"
+              </blockquote>
+
+              <div className="flex items-center gap-2">
+                <a href="#" aria-label="LinkedIn" className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft hover:text-ink">
+                  <Linkedin className="size-4" />
+                </a>
+                <a href="#" aria-label="Email" className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft hover:text-ink">
+                  <Mail className="size-4" />
+                </a>
               </div>
             </div>
           ))}

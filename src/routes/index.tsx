@@ -15,8 +15,6 @@ import {
   Users,
   LineChart,
   Check,
-  Star,
-  Quote,
   Heart,
   Banknote,
   Cpu,
@@ -25,13 +23,21 @@ import {
   GraduationCap,
   Building2,
   Plane,
+  Download,
 } from "lucide-react";
 import { useState } from "react";
 import { HeroVisual } from "../components/site/HeroVisual";
 import { Section, CTASection } from "../components/site/Section";
-import { Counter } from "../components/site/Counter";
 import { DiscoveryDialog, ProposalDialog } from "../components/site/CTADialogs";
 import { ConceptProductsShowcase } from "../components/site/ConceptProducts";
+import { AICapabilities } from "../components/site/AICapabilities";
+import { EngagementModels } from "../components/site/EngagementModels";
+import { SecurityCompliance } from "../components/site/SecurityCompliance";
+import { AchievementStats } from "../components/site/AchievementStats";
+import { TechPartners } from "../components/site/TechPartners";
+import { TestimonialSlider } from "../components/site/TestimonialSlider";
+import { FAQ } from "../components/site/FAQ";
+import { CostCalculator } from "../components/site/CostCalculator";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,12 +46,12 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Govitrix partners with startups, SMBs, and enterprises to design, build, and scale intelligent digital products — web, mobile, AI, and cloud.",
+          "Govitrix is a global technology consulting and product engineering company. We design, build and scale web, mobile, AI, and cloud products for enterprises and ambitious startups.",
       },
       { property: "og:title", content: "Govitrix Corporation" },
       {
         property: "og:description",
-        content: "Product engineering & technology consulting that drives growth.",
+        content: "Product engineering, AI, and technology consulting that drives measurable growth.",
       },
       { property: "og:url", content: "/" },
     ],
@@ -72,142 +78,50 @@ const credibility = [
   { icon: LineChart, title: "High-performance", body: "Sub-second experiences across web and mobile." },
 ];
 
-const stats = [
-  { value: 120, suffix: "+", label: "Projects Delivered" },
-  { value: 65, suffix: "+", label: "Products Built" },
-  { value: 18, suffix: "", label: "Industries Served" },
-  { value: 22, suffix: "", label: "Countries Targeted" },
-];
-
-
 const services = [
-  {
-    icon: Layers,
-    title: "Product Engineering",
-    body: "Scalable SaaS platforms, web products, and enterprise solutions built end-to-end.",
-    benefits: ["Architecture & roadmap", "Frontend & backend", "QA & observability"],
-  },
-  {
-    icon: Smartphone,
-    title: "Mobile Development",
-    body: "Native and cross-platform mobile experiences engineered for performance.",
-    benefits: ["iOS & Android", "React Native / Flutter", "App store launch"],
-  },
-  {
-    icon: BrainCircuit,
-    title: "AI & Analytics",
-    body: "Machine learning, generative AI, business intelligence, and data analytics.",
-    benefits: ["LLM applications", "Predictive models", "BI dashboards"],
-  },
-  {
-    icon: Cloud,
-    title: "Cloud & DevOps",
-    body: "Cloud infrastructure, CI/CD, monitoring, and scalability by default.",
-    benefits: ["AWS, Azure, GCP", "Kubernetes & IaC", "24×7 monitoring"],
-  },
-  {
-    icon: PenTool,
-    title: "UI/UX Design",
-    body: "Research-led design systems, user experience, and high-fidelity prototyping.",
-    benefits: ["User research", "Design systems", "Prototyping"],
-  },
-  {
-    icon: Lightbulb,
-    title: "Technology Consulting",
-    body: "Digital transformation, architecture consulting, and product strategy.",
-    benefits: ["Tech due diligence", "Architecture review", "Roadmaps"],
-  },
+  { icon: Layers, title: "Web Application Development", body: "Scalable SaaS, web platforms, and enterprise applications engineered end-to-end.", benefits: ["Architecture & roadmap", "Frontend & backend", "QA & observability"] },
+  { icon: Smartphone, title: "Mobile App Development", body: "Native and cross-platform mobile experiences engineered for performance.", benefits: ["iOS & Android", "React Native / Flutter", "App store launch"] },
+  { icon: BrainCircuit, title: "AI & Analytics", body: "Generative AI, agents, ML, and analytics tuned for real business outcomes.", benefits: ["LLM applications", "Predictive models", "BI dashboards"] },
+  { icon: Cloud, title: "Cloud & DevOps", body: "Cloud infrastructure, CI/CD, monitoring, and scalability by default.", benefits: ["AWS, Azure, GCP", "Kubernetes & IaC", "24×7 monitoring"] },
+  { icon: PenTool, title: "UI/UX Design", body: "Research-led design systems, user experience, and high-fidelity prototyping.", benefits: ["User research", "Design systems", "Prototyping"] },
+  { icon: Lightbulb, title: "Product Strategy & Consulting", body: "Digital transformation, architecture consulting, and product strategy.", benefits: ["Tech due diligence", "Architecture review", "Roadmaps"] },
 ];
 
 const industries = [
   { icon: Heart, name: "Healthcare" },
   { icon: Banknote, name: "FinTech" },
   { icon: Cpu, name: "SaaS" },
-  { icon: ShoppingBag, name: "eCommerce" },
+  { icon: ShoppingBag, name: "Retail" },
   { icon: Truck, name: "Logistics" },
   { icon: GraduationCap, name: "Education" },
-  { icon: Building2, name: "Real Estate" },
-  { icon: Plane, name: "Travel" },
-];
-
-const why = [
-  "Product Thinking First",
-  "Founder-Led Partnership",
-  "Transparent Communication",
-  "Modern Technology Stack",
-  "Agile Delivery Model",
-  "Long-Term Growth Focus",
-  "Enterprise Security Standards",
-  "Dedicated Success Approach",
+  { icon: Building2, name: "Manufacturing" },
+  { icon: Plane, name: "Insurance" },
 ];
 
 const process = [
   { step: "01", title: "Discovery", body: "Stakeholder interviews, goals, success metrics." },
-  { step: "02", title: "Strategy", body: "Roadmap, scope, architecture, and timelines." },
-  { step: "03", title: "UX/UI Design", body: "Research, IA, prototypes, and design systems." },
-  { step: "04", title: "Development", body: "Two-week sprints with weekly demos." },
-  { step: "05", title: "Testing", body: "Automated and manual QA, performance audits." },
-  { step: "06", title: "Deployment", body: "CI/CD, observability, secure rollouts." },
-  { step: "07", title: "Support", body: "Ongoing improvements, SRE, and growth." },
-];
-
-const stack: { group: string; items: string[] }[] = [
-  { group: "Frontend", items: ["React", "Next.js", "Vue", "Angular"] },
-  { group: "Mobile", items: ["Flutter", "React Native", "Swift", "Kotlin"] },
-  { group: "Backend", items: ["Node.js", "Python", "Java", ".NET"] },
-  { group: "Databases", items: ["PostgreSQL", "MongoDB", "MySQL"] },
-  { group: "Cloud", items: ["AWS", "Azure", "Google Cloud"] },
-  { group: "AI", items: ["OpenAI", "LangChain", "TensorFlow", "PyTorch"] },
-];
-
-const testimonials = [
-  {
-    quote:
-      "Govitrix delivered our analytics platform faster than two prior agencies combined. Their senior team set the bar.",
-    name: "Priya Mehta",
-    role: "VP Engineering, Northvault",
-  },
-  {
-    quote:
-      "From discovery through launch, they operated as a true product partner. Our retention jumped 28% within a quarter.",
-    name: "Daniel Okafor",
-    role: "Founder, Lumenly Health",
-  },
-  {
-    quote:
-      "Calm, senior, and consistently right. They architected a platform that handles 10x our launch traffic.",
-    name: "Sofia Nilsen",
-    role: "CTO, Cargolane",
-  },
+  { step: "02", title: "Research", body: "Users, competitors, and technical landscape." },
+  { step: "03", title: "Strategy", body: "Roadmap, scope, architecture, and timelines." },
+  { step: "04", title: "UX / UI", body: "Research, IA, prototypes, and design systems." },
+  { step: "05", title: "Engineering", body: "Two-week sprints with weekly demos." },
+  { step: "06", title: "QA", body: "Automated and manual testing, performance audits." },
+  { step: "07", title: "Deployment", body: "CI/CD, observability, secure rollouts." },
+  { step: "08", title: "Support", body: "SRE, incident response, and continuous improvement." },
+  { step: "09", title: "Scale", body: "Growth engineering and platform maturity." },
 ];
 
 const insights = [
-  {
-    tag: "Cost",
-    title: "How much does it cost to build a mobile app?",
-    excerpt: "A pragmatic breakdown of cost drivers, ranges, and how to budget responsibly.",
-    read: "8 min read",
-  },
-  {
-    tag: "AI",
-    title: "AI adoption in modern businesses",
-    excerpt: "Where AI delivers measurable ROI, and the patterns that consistently fail.",
-    read: "11 min read",
-  },
-  {
-    tag: "Strategy",
-    title: "MVP vs full product development",
-    excerpt: "Choosing the right scope for your stage — and avoiding the most expensive mistakes.",
-    read: "6 min read",
-  },
+  { tag: "Cost", title: "How much does it cost to build a mobile app?", excerpt: "A pragmatic breakdown of cost drivers, ranges, and how to budget responsibly.", read: "8 min read" },
+  { tag: "AI", title: "AI adoption in modern businesses", excerpt: "Where AI delivers measurable ROI, and the patterns that consistently fail.", read: "11 min read" },
+  { tag: "Strategy", title: "MVP vs full product development", excerpt: "Choosing the right scope for your stage — and avoiding the most expensive mistakes.", read: "6 min read" },
 ];
 
 function HomePage() {
   const [discoveryOpen, setDiscoveryOpen] = useState(false);
   const [proposalOpen, setProposalOpen] = useState(false);
 
-  const scrollToPortfolio = () => {
-    const el = document.getElementById("portfolio");
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -255,7 +169,7 @@ function HomePage() {
               </button>
               <button
                 type="button"
-                onClick={scrollToPortfolio}
+                onClick={() => scrollTo("products")}
                 className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-surface"
               >
                 Explore Portfolio <ArrowRight className="size-4" />
@@ -279,25 +193,16 @@ function HomePage() {
       </section>
 
       {/* LOGO MARQUEE */}
-      <section aria-label="Trusted by" className="border-b border-border bg-surface py-10">
+      <section aria-label="Products" className="border-b border-border bg-surface py-10">
         <div className="container-page">
           <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-ink-muted">
-            Concept Products & Innovation Labs
+            Products & Innovation Labs
           </p>
           <div className="relative mt-6 overflow-hidden">
             <div className="marquee-track flex w-max items-center gap-12 whitespace-nowrap">
               {[...Array(2)].flatMap((_, i) =>
-                [
-                  "MEDICARE HMS",
-                  "FINBUD",
-                  "APEXSCORE",
-                  "SELLMATE",
-                  "ANAHATA AI",
-                ].map((name) => (
-                  <span
-                    key={`${i}-${name}`}
-                    className="font-display text-xl font-bold tracking-widest text-ink-muted/70"
-                  >
+                ["MEDICARE HMS", "FINBUD", "APEXSCORE", "SELLMATE", "ANAHATA AI"].map((name) => (
+                  <span key={`${i}-${name}`} className="font-display text-xl font-bold tracking-widest text-ink-muted/70">
                     {name}
                   </span>
                 )),
@@ -306,6 +211,35 @@ function HomePage() {
           </div>
         </div>
       </section>
+
+      {/* ACHIEVEMENTS */}
+      <Section
+        eyebrow="Achievements"
+        title="Trusted by ambitious teams worldwide"
+        description="A track record built on senior craft, disciplined delivery, and measurable outcomes."
+      >
+        <AchievementStats />
+      </Section>
+
+      {/* PRODUCTS & INNOVATION LABS */}
+      <Section
+        id="products"
+        tone="surface"
+        eyebrow="Products & Innovation Labs"
+        title="Concept products engineered inside Govitrix"
+        description="A curated look at products built by our teams — showcasing how we approach product thinking, architecture, and delivery across industries."
+      >
+        <ConceptProductsShowcase />
+
+        <div className="mt-10 text-center">
+          <Link
+            to="/portfolio"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink hover:bg-surface"
+          >
+            Explore the full portfolio <ArrowRight className="size-4" />
+          </Link>
+        </div>
+      </Section>
 
       {/* CREDIBILITY */}
       <Section
@@ -324,43 +258,11 @@ function HomePage() {
             </div>
           ))}
         </div>
-
-        <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((s) => (
-            <div
-              key={s.label}
-              className="rounded-2xl border border-border bg-surface p-6 text-center"
-            >
-              <p className="font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
-                <Counter to={s.value} suffix={s.suffix} />
-              </p>
-              <p className="mt-2 text-sm font-medium text-ink-soft">{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </Section>
-
-      {/* CONCEPT PRODUCTS & INNOVATION LABS */}
-      <Section
-        tone="surface"
-        eyebrow="Concept Products & Innovation Labs"
-        title="Featured product case studies"
-        description="A curated look at products engineered inside Govitrix — showcasing how we approach product thinking, architecture, and delivery across industries."
-      >
-        <ConceptProductsShowcase />
-
-        <div className="mt-10 text-center">
-          <Link
-            to="/portfolio"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink hover:bg-surface"
-          >
-            Explore the full portfolio <ArrowRight className="size-4" />
-          </Link>
-        </div>
       </Section>
 
       {/* SERVICES */}
       <Section
+        tone="surface"
         eyebrow="Services"
         title="What we engineer"
         description="A complete toolkit for building, scaling, and modernizing technology products."
@@ -393,6 +295,15 @@ function HomePage() {
         </div>
       </Section>
 
+      {/* AI CAPABILITIES */}
+      <Section
+        eyebrow="AI Capabilities"
+        title="Deep AI engineering — from prototype to production"
+        description="We build applied AI systems on top of modern LLMs, agents, and data pipelines — grounded in security, evaluation, and business ROI."
+      >
+        <AICapabilities />
+      </Section>
+
       {/* INDUSTRIES */}
       <Section
         tone="surface"
@@ -416,25 +327,13 @@ function HomePage() {
         </div>
       </Section>
 
-      {/* WHY GOVITRIX */}
+      {/* ENGAGEMENT MODELS */}
       <Section
-        eyebrow="Why Govitrix"
-        title="Why businesses choose us"
-        description="We focus on outcomes, not output. These principles guide every engagement."
+        eyebrow="Engagement Models"
+        title="Flexible ways to work with Govitrix"
+        description="Choose the model that fits your stage — from fixed-scope projects to full product partnerships."
       >
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {why.map((w, i) => (
-            <div
-              key={w}
-              className="flex items-start gap-3 rounded-2xl border border-border bg-background p-5"
-            >
-              <span className="inline-flex size-7 shrink-0 items-center justify-center rounded-lg bg-primary text-xs font-bold text-primary-foreground">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <p className="text-sm font-medium leading-snug text-ink">{w}</p>
-            </div>
-          ))}
-        </div>
+        <EngagementModels />
       </Section>
 
       {/* PROCESS */}
@@ -444,12 +343,9 @@ function HomePage() {
         title="A disciplined, transparent delivery model"
         description="Each phase is structured, measurable, and designed to de-risk delivery."
       >
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {process.map((p) => (
-            <div
-              key={p.step}
-              className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-6"
-            >
+            <div key={p.step} className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-6">
               <p className="font-display text-3xl font-bold text-success">{p.step}</p>
               <h3 className="mt-2 text-lg font-semibold text-primary-foreground">{p.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-primary-foreground/70">{p.body}</p>
@@ -458,63 +354,83 @@ function HomePage() {
         </div>
       </Section>
 
-      {/* TECH STACK */}
+      {/* SECURITY & COMPLIANCE */}
       <Section
-        eyebrow="Technology"
-        title="Modern, opinionated stack"
-        description="We choose the right tools for each layer — pragmatic, proven, and built to last."
+        eyebrow="Security & Compliance"
+        title="Enterprise-grade security, built in"
+        description="We architect every product with security, privacy, and regulatory awareness from day one."
       >
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {stack.map((s) => (
-            <div key={s.group} className="rounded-2xl border border-border bg-background p-6">
-              <p className="text-xs font-semibold uppercase tracking-wider text-accent">
-                {s.group}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {s.items.map((it) => (
-                  <span
-                    key={it}
-                    className="rounded-lg border border-border bg-surface px-3 py-1.5 text-sm font-medium text-ink"
-                  >
-                    {it}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
+        <SecurityCompliance />
+      </Section>
+
+      {/* TECH PARTNERS */}
+      <Section
+        tone="surface"
+        eyebrow="Technology Partners"
+        title="A modern, proven technology ecosystem"
+        description="We work with the platforms and standards trusted by global enterprises."
+      >
+        <TechPartners />
+      </Section>
+
+      {/* COST CALCULATOR */}
+      <Section
+        id="estimate"
+        eyebrow="Project Estimator"
+        title="Get an instant project cost estimate"
+        description="Configure your project below to see an indicative price range. For a detailed proposal, share your requirements with our team."
+      >
+        <CostCalculator onRequestProposal={() => setProposalOpen(true)} />
       </Section>
 
       {/* TESTIMONIALS */}
-      <Section tone="surface" eyebrow="Clients" title="What our partners say">
-        <div className="grid gap-5 md:grid-cols-3">
-          {testimonials.map((t, i) => (
-            <figure
-              key={i}
-              className="flex flex-col justify-between rounded-2xl border border-border bg-background p-7 shadow-soft"
-            >
-              <div>
-                <Quote className="size-6 text-accent/50" />
-                <div className="mt-3 flex gap-0.5 text-success">
-                  {Array.from({ length: 5 }).map((_, j) => (
-                    <Star key={j} className="size-4 fill-current" />
-                  ))}
-                </div>
-                <blockquote className="mt-4 text-base leading-relaxed text-ink">
-                  "{t.quote}"
-                </blockquote>
-              </div>
-              <figcaption className="mt-6 border-t border-border pt-4">
-                <p className="text-sm font-semibold text-ink">{t.name}</p>
-                <p className="text-xs text-ink-muted">{t.role}</p>
-              </figcaption>
-            </figure>
-          ))}
+      <Section
+        tone="surface"
+        eyebrow="Client Stories"
+        title="What our partners say"
+        description="Outcomes speak louder than words. Here's what teams we've built with have to say."
+      >
+        <TestimonialSlider />
+      </Section>
+
+      {/* DOWNLOAD CAPABILITY DECK */}
+      <Section>
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-surface to-background p-8 md:p-12">
+          <div aria-hidden className="absolute inset-0 hairline-grid opacity-40" />
+          <div className="relative grid gap-8 md:grid-cols-2 md:items-center">
+            <div>
+              <p className="eyebrow">Company Profile</p>
+              <h2 className="mt-3 font-display text-2xl font-semibold text-ink md:text-3xl">
+                Download the Govitrix capability deck
+              </h2>
+              <p className="mt-3 max-w-lg text-ink-soft">
+                A concise overview of who we are, our services, portfolio, technology stack, and
+                engagement models — everything you need to evaluate Govitrix as a partner.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-3 md:justify-end">
+              <button
+                type="button"
+                onClick={() => setProposalOpen(true)}
+                className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-soft hover:bg-secondary"
+              >
+                <Download className="size-4" /> Download Company Profile
+              </button>
+              <button
+                type="button"
+                onClick={() => setDiscoveryOpen(true)}
+                className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink hover:bg-surface"
+              >
+                Talk to us
+              </button>
+            </div>
+          </div>
         </div>
       </Section>
 
       {/* INSIGHTS */}
       <Section
+        tone="surface"
         eyebrow="Insights"
         title="Ideas worth reading"
         description="Field notes on product strategy, AI, engineering, and modern delivery."
@@ -549,6 +465,15 @@ function HomePage() {
             </Link>
           ))}
         </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section
+        eyebrow="FAQ"
+        title="Frequently asked questions"
+        description="Everything you need to know before starting a conversation with our team."
+      >
+        <FAQ />
       </Section>
 
       <CTASection />

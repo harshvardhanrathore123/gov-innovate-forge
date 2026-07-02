@@ -133,13 +133,14 @@ export function DiscoveryDialog({ open, onClose }: { open: boolean; onClose: () 
 const budgets = ["<$25K", "$25K – $50K", "$50K – $150K", "$150K – $500K", "$500K+"];
 const projectTypes = ["Web Application", "Mobile App", "AI / ML System", "Cloud & DevOps", "Product Strategy", "Digital Transformation"];
 const timelines = ["ASAP", "1-3 months", "3-6 months", "6+ months", "Flexible"];
+const industries = ["Healthcare", "FinTech", "SaaS", "eCommerce", "Education", "Logistics", "Manufacturing", "Insurance", "Legal", "Other"];
 
 export function ProposalDialog({ open, onClose }: { open: boolean; onClose: () => void }) {
   const [step, setStep] = useState(1);
   const [sent, setSent] = useState(false);
   const [form, setForm] = useState({
-    name: "", company: "", email: "", country: "",
-    budget: "", type: "", timeline: "",
+    name: "", company: "", email: "", phone: "", country: "",
+    industry: "", budget: "", type: "", timeline: "",
     requirements: "", fileName: "",
   });
 
@@ -148,13 +149,13 @@ export function ProposalDialog({ open, onClose }: { open: boolean; onClose: () =
   const submit = (e: React.FormEvent) => { e.preventDefault(); setSent(true); };
 
   return (
-    <Modal open={open} onClose={onClose} title="Get a Proposal" description="Tell us about your project. You'll hear back within 24 business hours." size="xl">
+    <Modal open={open} onClose={onClose} title="Get a Proposal" description="Tell us about your project. Our team will review your requirements and provide a proposal within 24–48 hours." size="xl">
       {sent ? (
         <div className="text-center py-8">
           <div className="mx-auto inline-flex size-14 items-center justify-center rounded-full bg-success/15 text-success">✓</div>
-          <h3 className="mt-4 font-display text-2xl font-semibold text-ink">Request received.</h3>
+          <h3 className="mt-4 font-display text-2xl font-semibold text-ink">Thank you.</h3>
           <p className="mt-2 max-w-md mx-auto text-sm text-ink-soft">
-            Thanks {form.name.split(" ")[0]} — a partner will personally review your brief and reply to <span className="font-medium text-ink">{form.email}</span> within 24 business hours.
+            Our team will review your requirements and provide a proposal to <span className="font-medium text-ink">{form.email}</span> within 24–48 hours.
           </p>
           <button onClick={onClose} className="mt-6 inline-flex rounded-xl bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground hover:bg-secondary">Close</button>
         </div>
@@ -175,7 +176,19 @@ export function ProposalDialog({ open, onClose }: { open: boolean; onClose: () =
               <Field label="Full name" required value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
               <Field label="Company" required value={form.company} onChange={(v) => setForm({ ...form, company: v })} />
               <Field label="Work email" required type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
+              <Field label="Phone" type="tel" value={form.phone} onChange={(v) => setForm({ ...form, phone: v })} />
               <Field label="Country" value={form.country} onChange={(v) => setForm({ ...form, country: v })} />
+              <div>
+                <label className="text-sm font-medium text-ink">Industry</label>
+                <select
+                  value={form.industry}
+                  onChange={(e) => setForm({ ...form, industry: e.target.value })}
+                  className="mt-1.5 w-full rounded-xl border border-border bg-background px-3.5 py-2.5 text-sm text-ink focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/20"
+                >
+                  <option value="">Select industry…</option>
+                  {industries.map((i) => <option key={i} value={i}>{i}</option>)}
+                </select>
+              </div>
             </div>
           )}
           {step === 2 && (
