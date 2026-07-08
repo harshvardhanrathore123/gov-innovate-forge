@@ -1,15 +1,12 @@
 import { useState } from "react";
-import { Quote, Star, ChevronLeft, ChevronRight, PlayCircle } from "lucide-react";
+import { Quote, Star, ChevronLeft, ChevronRight } from "lucide-react";
 
 type T = {
   quote: string;
   name: string;
   role: string;
   company: string;
-  impact: string;
-  projectType: string;
-  initials: string;
-  hasVideo?: boolean;
+  photo: string;
 };
 
 const testimonials: T[] = [
@@ -19,31 +16,23 @@ const testimonials: T[] = [
     name: "Priya Mehta",
     role: "VP Engineering",
     company: "Northvault Finance",
-    impact: "3.2x faster releases",
-    projectType: "SaaS Platform · Cloud",
-    initials: "PM",
-    hasVideo: true,
+    photo: "https://randomuser.me/api/portraits/women/44.jpg",
   },
   {
     quote:
-      "From discovery through launch, they operated as a true product partner. Retention jumped 28% within a single quarter of shipping.",
+      "From discovery through launch, they operated as a true product partner. Retention jumped meaningfully within a single quarter of shipping.",
     name: "Daniel Okafor",
-    role: "Founder",
+    role: "Founder & CEO",
     company: "Lumenly Health",
-    impact: "+28% retention",
-    projectType: "Healthcare · Mobile + AI",
-    initials: "DO",
+    photo: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {
     quote:
       "Calm, senior, and consistently right. They architected a platform that scaled from launch to 10x load without a single incident.",
     name: "Sofia Nilsen",
-    role: "CTO",
+    role: "Chief Technology Officer",
     company: "Cargolane",
-    impact: "10x load, zero incidents",
-    projectType: "Logistics · Platform Engineering",
-    initials: "SN",
-    hasVideo: true,
+    photo: "https://randomuser.me/api/portraits/women/68.jpg",
   },
   {
     quote:
@@ -51,9 +40,7 @@ const testimonials: T[] = [
     name: "Rahul Iyer",
     role: "Head of Product",
     company: "Atlas Learn",
-    impact: "+3.1x engagement",
-    projectType: "EdTech · Web + AI",
-    initials: "RI",
+    photo: "https://randomuser.me/api/portraits/men/45.jpg",
   },
 ];
 
@@ -64,51 +51,29 @@ export function TestimonialSlider() {
   const t = testimonials[i];
 
   return (
-    <div className="relative">
+    <div className="relative mx-auto max-w-4xl">
       <div className="relative overflow-hidden rounded-3xl border border-border bg-background p-8 shadow-soft md:p-12">
-        <div className="grid gap-8 md:grid-cols-5 md:items-center">
-          <div className="md:col-span-2">
-            <div className="relative mx-auto flex aspect-square w-full max-w-[280px] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-accent/15 to-success/10">
-              <div aria-hidden className="absolute inset-0 hairline-grid opacity-40" />
-              <div className="relative flex size-24 items-center justify-center rounded-2xl bg-primary font-display text-2xl font-bold text-primary-foreground">
-                {t.initials}
-              </div>
-              {t.hasVideo && (
-                <button
-                  type="button"
-                  aria-label="Play video testimonial"
-                  className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-semibold text-ink shadow-soft backdrop-blur transition-colors hover:bg-background"
-                >
-                  <PlayCircle className="size-4 text-accent" /> Watch story
-                </button>
-              )}
-            </div>
-            <div className="mt-5 grid grid-cols-2 gap-3">
-              <div className="rounded-xl border border-border bg-surface p-3 text-center">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-ink-muted">Impact</p>
-                <p className="mt-1 text-sm font-semibold text-ink">{t.impact}</p>
-              </div>
-              <div className="rounded-xl border border-border bg-surface p-3 text-center">
-                <p className="text-[11px] font-semibold uppercase tracking-wider text-ink-muted">Project</p>
-                <p className="mt-1 text-sm font-semibold text-ink">{t.projectType}</p>
-              </div>
-            </div>
+        <Quote className="absolute right-8 top-8 size-16 text-accent/10" strokeWidth={1.5} />
+        <div className="relative">
+          <div className="flex gap-0.5 text-success">
+            {Array.from({ length: 5 }).map((_, j) => (
+              <Star key={j} className="size-4 fill-current" />
+            ))}
           </div>
-
-          <div className="md:col-span-3">
-            <Quote className="size-8 text-accent/40" />
-            <div className="mt-3 flex gap-0.5 text-success">
-              {Array.from({ length: 5 }).map((_, j) => (
-                <Star key={j} className="size-4 fill-current" />
-              ))}
-            </div>
-            <blockquote className="mt-4 text-lg leading-relaxed text-ink md:text-xl">
-              "{t.quote}"
-            </blockquote>
-            <div className="mt-6 border-t border-border pt-4">
-              <p className="font-semibold text-ink">{t.name}</p>
+          <blockquote className="mt-5 text-xl leading-relaxed text-ink md:text-2xl md:leading-[1.5]">
+            "{t.quote}"
+          </blockquote>
+          <div className="mt-8 flex items-center gap-4 border-t border-border pt-6">
+            <img
+              src={t.photo}
+              alt={t.name}
+              loading="lazy"
+              className="size-14 rounded-full object-cover ring-2 ring-border"
+            />
+            <div>
+              <p className="font-display text-base font-semibold text-ink">{t.name}</p>
               <p className="text-sm text-ink-soft">
-                {t.role} · {t.company}
+                {t.role} · <span className="font-medium text-ink">{t.company}</span>
               </p>
             </div>
           </div>
@@ -130,16 +95,16 @@ export function TestimonialSlider() {
           <button
             onClick={prev}
             aria-label="Previous testimonial"
-            className="inline-flex size-10 items-center justify-center rounded-xl border border-border bg-background text-ink-soft hover:text-ink"
+            className="inline-flex size-10 items-center justify-center rounded-xl border border-border bg-background text-ink-soft transition-all hover:-translate-y-0.5 hover:text-ink"
           >
-            <ChevronLeft className="size-4" />
+            <ChevronLeft className="size-4" strokeWidth={1.75} />
           </button>
           <button
             onClick={next}
             aria-label="Next testimonial"
-            className="inline-flex size-10 items-center justify-center rounded-xl border border-border bg-background text-ink-soft hover:text-ink"
+            className="inline-flex size-10 items-center justify-center rounded-xl border border-border bg-background text-ink-soft transition-all hover:-translate-y-0.5 hover:text-ink"
           >
-            <ChevronRight className="size-4" />
+            <ChevronRight className="size-4" strokeWidth={1.75} />
           </button>
         </div>
       </div>

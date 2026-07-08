@@ -6,11 +6,14 @@ import {
   Mail,
   MapPin,
   Phone,
-  CalendarClock,
   Plus,
   Minus,
+  Upload,
+  CheckCircle2,
+  Building2,
 } from "lucide-react";
 import { PageHero, Section } from "../components/site/Section";
+import { Modal } from "../components/site/CTADialogs";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -18,7 +21,7 @@ export const Route = createFileRoute("/contact")({
       { title: "Contact — Govitrix Corporation" },
       {
         name: "description",
-        content: "Book a discovery call or send a project brief to Govitrix Corporation.",
+        content: "Get in touch with Govitrix Corporation — sales@govitrix.com or +91 78300 80357. HQ: Noida, Uttar Pradesh.",
       },
       { property: "og:title", content: "Contact — Govitrix" },
       { property: "og:url", content: "/contact" },
@@ -31,28 +34,31 @@ export const Route = createFileRoute("/contact")({
 const schema = z.object({
   name: z.string().trim().min(1, "Required").max(100),
   email: z.string().trim().email("Invalid email").max(255),
+  phone: z.string().trim().min(5, "Required").max(30),
   company: z.string().trim().max(120).optional().or(z.literal("")),
-  country: z.string().trim().max(80).optional().or(z.literal("")),
-  budget: z.string().trim().max(40).optional().or(z.literal("")),
-  details: z.string().trim().min(10, "Please share a few details").max(2000),
+  message: z.string().trim().min(10, "Please share a few details").max(2000),
 });
 
 const faqs = [
   {
-    q: "How do engagements typically start?",
-    a: "We begin with a free 30-minute discovery call, followed by a structured proposal outlining scope, timeline, and price.",
+    q: "What services does Govitrix offer?",
+    a: "We deliver end-to-end product engineering: web and mobile application development, AI and analytics, cloud and DevOps, UI/UX design, and technology consulting. Every engagement is staffed with senior teams.",
   },
   {
-    q: "What's a typical project size?",
-    a: "Engagements range from focused 4–6 week sprints to multi-quarter product builds. We work with startups and global enterprises.",
+    q: "What are typical project timelines?",
+    a: "Focused MVPs and modernization sprints run 6–12 weeks. Product platforms and enterprise builds run 3–9 months. We share detailed timelines with each proposal — and prioritize incremental value delivery every sprint.",
   },
   {
-    q: "Do you sign NDAs?",
-    a: "Yes, we're happy to sign a mutual NDA before discussing details.",
+    q: "How do you handle security and data protection?",
+    a: "We architect every product with security and privacy from day one — Secure Development Lifecycle, threat modeling, encryption in transit and at rest, role-based access, and audit logging. We build HIPAA-, GDPR-, and SOC 2-aligned architectures. Mutual NDAs are signed before any commercial discussion.",
   },
   {
-    q: "Where is your team based?",
-    a: "We are remote-first with team members across the Americas, EMEA, and APAC.",
+    q: "What engagement models do you offer?",
+    a: "Fixed-scope projects for well-defined work, dedicated development teams for long-term product engineering, staff augmentation to extend your team, and full product partnerships where Govitrix owns strategy through growth.",
+  },
+  {
+    q: "Which industries do you specialize in?",
+    a: "Healthcare, FinTech, SaaS, EdTech, Sports Analytics, Logistics, eCommerce, Real Estate, and Travel. We bring domain patterns, regulatory awareness, and reference architectures to each engagement.",
   },
 ];
 
@@ -60,14 +66,30 @@ function ContactPage() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    phone: "",
     company: "",
-    country: "",
-    budget: "",
-    details: "",
+    message: "",
+    file: "",
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [sent, setSent] = useState(false);
+  const [confirm, setConfirm] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = schema.safeParse(form);
+    if (!result.success) {
+      const errs: Record<string, string> = {};
+      result.error.issues.forEach((i) => {
+        errs[i.path[0] as string] = i.message;
+      });
+      setErrors(errs);
+      return;
+    }
+    setErrors({});
+    setConfirm(true);
+    setForm({ name: "", email: "", phone: "", company: "", message: "", file: "" });
+  };
 
   return (
     <>
@@ -75,120 +97,110 @@ function ContactPage() {
         eyebrow="Contact"
         title="Let's build something meaningful."
         description="Tell us about your goals. We typically respond within one business day."
+        image="https://images.unsplash.com/photo-1524749292158-7540c2494485?w=1920&q=70&auto=format&fit=crop"
       />
 
       <Section>
         <div className="grid gap-10 lg:grid-cols-12">
+          {/* LEFT: contact info + Noida image */}
           <div className="lg:col-span-5">
-            <h3 className="font-display text-2xl font-semibold text-ink">Get in touch</h3>
+            <h3 className="font-display text-3xl font-semibold text-ink md:text-4xl">Get in touch</h3>
             <p className="mt-3 text-ink-soft">
-              For partnerships, proposals, or just to say hello — reach us via the form or directly.
+              For partnerships, proposals, or a discovery conversation — reach us via the form or
+              directly through the channels below.
             </p>
 
             <div className="mt-8 space-y-4">
               {[
-                { icon: Mail, label: "Email", value: "hello@govitrix.com" },
-                { icon: Phone, label: "Phone", value: "+1 (415) 555-0119" },
-                { icon: MapPin, label: "HQ", value: "Global · Remote-first" },
-              ].map((c) => (
-                <div
-                  key={c.label}
-                  className="flex items-center gap-4 rounded-2xl border border-border bg-background p-4"
-                >
-                  <span className="inline-flex size-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                    <c.icon className="size-5" />
-                  </span>
-                  <div>
-                    <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
-                      {c.label}
-                    </p>
-                    <p className="text-sm font-medium text-ink">{c.value}</p>
+                { icon: Mail, label: "Email", value: "sales@govitrix.com", href: "mailto:sales@govitrix.com" },
+                { icon: Phone, label: "Phone", value: "+91 78300 80357", href: "tel:+917830080357" },
+                { icon: MapPin, label: "HQ", value: "Noida, Uttar Pradesh", href: null },
+              ].map((c) => {
+                const inner = (
+                  <>
+                    <span className="inline-flex size-11 items-center justify-center rounded-xl bg-accent/10 text-accent">
+                      <c.icon className="size-5" strokeWidth={1.75} />
+                    </span>
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">
+                        {c.label}
+                      </p>
+                      <p className="text-sm font-medium text-ink">{c.value}</p>
+                    </div>
+                  </>
+                );
+                return c.href ? (
+                  <a
+                    key={c.label}
+                    href={c.href}
+                    className="flex items-center gap-4 rounded-2xl border border-border bg-background p-4 transition-all hover:-translate-y-0.5 hover:border-border-strong hover:shadow-soft"
+                  >
+                    {inner}
+                  </a>
+                ) : (
+                  <div
+                    key={c.label}
+                    className="flex items-center gap-4 rounded-2xl border border-border bg-background p-4"
+                  >
+                    {inner}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
-            <div className="mt-8 rounded-3xl border border-border bg-primary p-7 text-primary-foreground">
-              <div className="flex items-center gap-3">
-                <span className="inline-flex size-10 items-center justify-center rounded-xl bg-primary-foreground/10 text-success">
-                  <CalendarClock className="size-5" />
-                </span>
-                <div>
-                  <p className="text-xs font-semibold uppercase tracking-wider text-success">
-                    Book a slot
+            {/* Location image (Noida Sector 144) */}
+            <div className="mt-8 overflow-hidden rounded-2xl border border-border bg-surface">
+              <div className="relative aspect-[4/3] w-full">
+                <img
+                  src="https://images.unsplash.com/photo-1590674899484-d5640e854abe?w=1200&q=70&auto=format&fit=crop"
+                  alt="Modern commercial towers representing our Noida Sector 144 headquarters"
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary/85 via-primary/40 to-transparent p-5 text-primary-foreground">
+                  <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.18em] text-success">
+                    <Building2 className="size-3.5" /> Headquarters
                   </p>
-                  <p className="font-display text-lg font-semibold">
-                    30-min discovery call
+                  <p className="mt-1 font-display text-lg font-semibold">
+                    Noida Sector 144, Uttar Pradesh, India
                   </p>
                 </div>
-              </div>
-              <p className="mt-4 text-sm text-primary-foreground/75">
-                Prefer to talk live? Reserve a slot directly on our calendar.
-              </p>
-              <a
-                href="https://calendly.com/"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-5 inline-flex items-center gap-1.5 rounded-xl bg-background px-4 py-2.5 text-sm font-semibold text-primary hover:shadow-elevated"
-              >
-                Open calendar <ArrowUpRight className="size-4" />
-              </a>
-              <div className="mt-6 rounded-2xl border border-dashed border-primary-foreground/20 p-4 text-xs text-primary-foreground/60">
-                Calendly embed placeholder — paste your widget here.
-              </div>
-            </div>
-
-            <div className="mt-8 aspect-video w-full overflow-hidden rounded-2xl border border-border bg-surface">
-              <div className="flex h-full items-center justify-center text-xs text-ink-muted">
-                Google Maps placeholder
               </div>
             </div>
           </div>
 
+          {/* RIGHT: form + FAQ */}
           <div className="lg:col-span-7">
             <form
               noValidate
-              onSubmit={(e) => {
-                e.preventDefault();
-                const result = schema.safeParse(form);
-                if (!result.success) {
-                  const errs: Record<string, string> = {};
-                  result.error.issues.forEach((i) => {
-                    errs[i.path[0] as string] = i.message;
-                  });
-                  setErrors(errs);
-                  return;
-                }
-                setErrors({});
-                setSent(true);
-                setForm({
-                  name: "",
-                  email: "",
-                  company: "",
-                  country: "",
-                  budget: "",
-                  details: "",
-                });
-                setTimeout(() => setSent(false), 5000);
-              }}
+              onSubmit={submit}
               className="rounded-3xl border border-border bg-background p-8 shadow-soft"
             >
               <div className="grid gap-5 sm:grid-cols-2">
-                <Field label="Name" error={errors.name}>
+                <Field label="Full Name*" error={errors.name}>
                   <input
                     className="input"
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    required
+                    placeholder="e.g. Anika Sharma"
                   />
                 </Field>
-                <Field label="Work email" error={errors.email}>
+                <Field label="Email Address*" error={errors.email}>
                   <input
                     type="email"
                     className="input"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    required
+                    placeholder="you@company.com"
+                  />
+                </Field>
+                <Field label="Contact Number*" error={errors.phone}>
+                  <input
+                    type="tel"
+                    className="input"
+                    value={form.phone}
+                    onChange={(e) => setForm({ ...form, phone: e.target.value })}
+                    placeholder="+91 98XXXXXX00"
                   />
                 </Field>
                 <Field label="Company">
@@ -196,38 +208,33 @@ function ContactPage() {
                     className="input"
                     value={form.company}
                     onChange={(e) => setForm({ ...form, company: e.target.value })}
+                    placeholder="Company name (optional)"
                   />
                 </Field>
-                <Field label="Country">
-                  <input
-                    className="input"
-                    value={form.country}
-                    onChange={(e) => setForm({ ...form, country: e.target.value })}
-                  />
-                </Field>
-                <Field label="Estimated budget" className="sm:col-span-2">
-                  <select
-                    className="input"
-                    value={form.budget}
-                    onChange={(e) => setForm({ ...form, budget: e.target.value })}
-                  >
-                    <option value="">Select a range</option>
-                    <option>Under $25k</option>
-                    <option>$25k – $75k</option>
-                    <option>$75k – $200k</option>
-                    <option>$200k+</option>
-                    <option>Not sure yet</option>
-                  </select>
-                </Field>
-                <Field label="Project details" error={errors.details} className="sm:col-span-2">
+                <Field label="Message*" error={errors.message} className="sm:col-span-2">
                   <textarea
                     rows={6}
                     className="input resize-y"
-                    placeholder="Goals, scope, timelines, anything we should know."
-                    value={form.details}
-                    onChange={(e) => setForm({ ...form, details: e.target.value })}
-                    required
+                    placeholder="Tell us about your goals, scope, timelines, or anything we should know."
+                    value={form.message}
+                    onChange={(e) => setForm({ ...form, message: e.target.value })}
                   />
+                </Field>
+                <Field label="Upload File" className="sm:col-span-2">
+                  <label className="flex cursor-pointer items-center justify-between gap-3 rounded-xl border border-dashed border-border bg-surface px-4 py-3 text-sm text-ink-soft hover:border-border-strong hover:bg-background">
+                    <span className="inline-flex items-center gap-2">
+                      <Upload className="size-4" strokeWidth={1.75} />
+                      {form.file || "Attach a brief, spec, or reference (optional)"}
+                    </span>
+                    <span className="rounded-lg border border-border bg-background px-2.5 py-1 text-xs font-semibold text-ink">
+                      Browse
+                    </span>
+                    <input
+                      type="file"
+                      className="sr-only"
+                      onChange={(e) => setForm({ ...form, file: e.target.files?.[0]?.name || "" })}
+                    />
+                  </label>
                 </Field>
               </div>
 
@@ -241,21 +248,21 @@ function ContactPage() {
                 </p>
                 <button
                   type="submit"
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-secondary"
+                  className="group inline-flex items-center gap-1.5 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-secondary"
                 >
-                  Send message <ArrowUpRight className="size-4" />
+                  Send message <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </button>
               </div>
-              {sent && (
-                <p className="mt-4 rounded-lg bg-success/10 px-4 py-3 text-sm font-medium text-success">
-                  Thanks — your message is on its way. We'll respond within one business day.
-                </p>
-              )}
             </form>
 
-            <div className="mt-12">
-              <h3 className="font-display text-2xl font-semibold text-ink">Frequently asked</h3>
-              <div className="mt-5 divide-y divide-border rounded-2xl border border-border bg-background">
+            <div className="mt-14">
+              <h3 className="font-display text-3xl font-semibold text-ink md:text-4xl">
+                Frequently asked
+              </h3>
+              <p className="mt-2 text-ink-soft">
+                Answers to the questions we hear most from enterprise and founder teams.
+              </p>
+              <div className="mt-6 divide-y divide-border rounded-2xl border border-border bg-background">
                 {faqs.map((f, i) => {
                   const open = openFaq === i;
                   return (
@@ -264,7 +271,7 @@ function ContactPage() {
                         type="button"
                         onClick={() => setOpenFaq(open ? null : i)}
                         aria-expanded={open}
-                        className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                        className="flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition-colors hover:bg-surface"
                       >
                         <span className="font-medium text-ink">{f.q}</span>
                         {open ? (
@@ -273,7 +280,7 @@ function ContactPage() {
                           <Plus className="size-4 text-ink-muted" />
                         )}
                       </button>
-                      {open && <p className="px-5 pb-5 text-sm text-ink-soft">{f.a}</p>}
+                      {open && <p className="animate-fade-in px-5 pb-5 text-sm text-ink-soft">{f.a}</p>}
                     </div>
                   );
                 })}
@@ -282,6 +289,31 @@ function ContactPage() {
           </div>
         </div>
       </Section>
+
+      {/* CONFIRMATION MODAL */}
+      <Modal
+        open={confirm}
+        onClose={() => setConfirm(false)}
+        title="Message received"
+        size="md"
+      >
+        <div className="grid gap-5 text-center">
+          <div className="mx-auto inline-flex size-16 items-center justify-center rounded-full bg-success/10 text-success">
+            <CheckCircle2 className="size-8" strokeWidth={1.75} />
+          </div>
+          <p className="text-base leading-relaxed text-ink">
+            Thank you for contacting Govitrix. We have successfully received your inquiry. Our team
+            will review your requirements and get back to you shortly.
+          </p>
+          <button
+            type="button"
+            onClick={() => setConfirm(false)}
+            className="mx-auto inline-flex items-center gap-1.5 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-secondary"
+          >
+            Close
+          </button>
+        </div>
+      </Modal>
 
       <style>{`
         .input {

@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Logo } from "./Logo";
-import { Linkedin, Twitter, Github, Send, ArrowUpRight } from "lucide-react";
+import { Linkedin, Instagram, Send, ArrowUpRight } from "lucide-react";
 
 const groups = [
   {
@@ -36,10 +36,17 @@ const groups = [
     links: [
       { to: "/privacy", label: "Privacy Policy" },
       { to: "/terms", label: "Terms & Conditions" },
-      { to: "/privacy", label: "Cookie Settings" },
     ],
   },
 ] as const;
+
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden className={className} fill="currentColor">
+      <path d="M18.244 2H21l-6.52 7.45L22 22h-6.99l-4.79-6.27L4.7 22H2l7.03-8.03L2 2h7.07l4.31 5.7L18.244 2Zm-2.45 18h1.86L7.31 4H5.35l10.443 16Z" />
+    </svg>
+  );
+}
 
 export function SiteFooter() {
   const [email, setEmail] = useState("");
@@ -127,29 +134,35 @@ export function SiteFooter() {
           </p>
           <div className="flex items-center gap-2">
             <a
-              href="#"
+              href="https://www.linkedin.com/company/govitrix"
+              target="_blank"
+              rel="noreferrer"
               aria-label="LinkedIn"
-              className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft transition-colors hover:border-border-strong hover:text-ink"
+              className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft transition-all hover:-translate-y-0.5 hover:border-border-strong hover:text-ink"
             >
-              <Linkedin className="size-4" />
+              <Linkedin className="size-4" strokeWidth={1.75} />
             </a>
             <a
-              href="#"
-              aria-label="Twitter"
-              className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft transition-colors hover:border-border-strong hover:text-ink"
+              href="https://www.instagram.com/govitrix"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Instagram"
+              className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft transition-all hover:-translate-y-0.5 hover:border-border-strong hover:text-ink"
             >
-              <Twitter className="size-4" />
+              <Instagram className="size-4" strokeWidth={1.75} />
             </a>
             <a
-              href="#"
-              aria-label="GitHub"
-              className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft transition-colors hover:border-border-strong hover:text-ink"
+              href="https://x.com/govitrix"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="X (Twitter)"
+              className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft transition-all hover:-translate-y-0.5 hover:border-border-strong hover:text-ink"
             >
-              <Github className="size-4" />
+              <XIcon className="size-4" />
             </a>
             <Link
               to="/contact"
-              className="ml-2 inline-flex items-center gap-1 rounded-lg border border-border px-3 py-2 text-xs font-medium text-ink transition-colors hover:bg-background"
+              className="ml-2 inline-flex items-center gap-1 rounded-lg border border-border px-3 py-2 text-xs font-medium text-ink transition-all hover:-translate-y-0.5 hover:bg-background"
             >
               Start a project <ArrowUpRight className="size-3.5" />
             </Link>

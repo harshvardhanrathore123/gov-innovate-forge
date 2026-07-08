@@ -23,7 +23,6 @@ import {
   GraduationCap,
   Building2,
   Plane,
-  Download,
 } from "lucide-react";
 import { useState } from "react";
 import { HeroVisual } from "../components/site/HeroVisual";
@@ -37,7 +36,7 @@ import { AchievementStats } from "../components/site/AchievementStats";
 import { TechPartners } from "../components/site/TechPartners";
 import { TestimonialSlider } from "../components/site/TestimonialSlider";
 import { FAQ } from "../components/site/FAQ";
-import { CostCalculator } from "../components/site/CostCalculator";
+import { RoadmapProcess } from "../components/site/RoadmapProcess";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -46,7 +45,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "Govitrix is a global technology consulting and product engineering company. We design, build and scale web, mobile, AI, and cloud products for enterprises and ambitious startups.",
+          "Govitrix builds intelligent digital products, AI-powered solutions, and scalable enterprise platforms that help organizations innovate, grow, and lead.",
       },
       { property: "og:title", content: "Govitrix Corporation" },
       {
@@ -98,18 +97,6 @@ const industries = [
   { icon: Plane, name: "Insurance" },
 ];
 
-const process = [
-  { step: "01", title: "Discovery", body: "Stakeholder interviews, goals, success metrics." },
-  { step: "02", title: "Research", body: "Users, competitors, and technical landscape." },
-  { step: "03", title: "Strategy", body: "Roadmap, scope, architecture, and timelines." },
-  { step: "04", title: "UX / UI", body: "Research, IA, prototypes, and design systems." },
-  { step: "05", title: "Engineering", body: "Two-week sprints with weekly demos." },
-  { step: "06", title: "QA", body: "Automated and manual testing, performance audits." },
-  { step: "07", title: "Deployment", body: "CI/CD, observability, secure rollouts." },
-  { step: "08", title: "Support", body: "SRE, incident response, and continuous improvement." },
-  { step: "09", title: "Scale", body: "Growth engineering and platform maturity." },
-];
-
 const insights = [
   { tag: "Cost", title: "How much does it cost to build a mobile app?", excerpt: "A pragmatic breakdown of cost drivers, ranges, and how to budget responsibly.", read: "8 min read" },
   { tag: "AI", title: "AI adoption in modern businesses", excerpt: "Where AI delivers measurable ROI, and the patterns that consistently fail.", read: "11 min read" },
@@ -147,32 +134,29 @@ function HomePage() {
               </span>
             </h1>
             <p className="mt-6 max-w-2xl text-pretty text-lg text-ink-soft">
-              We engineer intelligent digital products that help businesses innovate, scale, and stay ahead in an
-              increasingly competitive world. From enterprise software and SaaS platforms to AI-powered systems,
-              cloud-native solutions, and modern mobile experiences, Govitrix transforms ambitious ideas into
-              measurable business outcomes.
+              We build intelligent digital products, AI-powered solutions, and scalable enterprise
+              platforms that help organizations innovate, grow, and lead in the digital era.
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={() => setDiscoveryOpen(true)}
-                className="group inline-flex items-center gap-1.5 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-soft transition-all hover:bg-secondary hover:shadow-elevated"
+                className="group inline-flex items-center gap-1.5 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-soft transition-all hover:-translate-y-0.5 hover:bg-secondary hover:shadow-elevated"
               >
                 Book Discovery Call
                 <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
-              <button
-                type="button"
-                onClick={() => setProposalOpen(true)}
-                className="inline-flex items-center gap-1.5 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-soft transition-all hover:opacity-90"
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-1.5 rounded-xl bg-accent px-5 py-3 text-sm font-semibold text-accent-foreground shadow-soft transition-all hover:-translate-y-0.5 hover:opacity-90"
               >
-                Get Proposal <ArrowRight className="size-4" />
-              </button>
+                Start a Project <ArrowRight className="size-4" />
+              </Link>
               <button
                 type="button"
                 onClick={() => scrollTo("products")}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink transition-colors hover:bg-surface"
+                className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5 hover:bg-surface"
               >
                 Explore Portfolio <ArrowRight className="size-4" />
               </button>
@@ -236,7 +220,7 @@ function HomePage() {
         <div className="mt-10 text-center">
           <Link
             to="/portfolio"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink hover:bg-surface"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5 hover:bg-surface"
           >
             Explore the full portfolio <ArrowRight className="size-4" />
           </Link>
@@ -251,11 +235,11 @@ function HomePage() {
       >
         <div className="grid gap-px overflow-hidden rounded-3xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {credibility.map((c) => (
-            <div key={c.title} className="bg-background p-7">
-              <span className="inline-flex size-11 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                <c.icon className="size-5" />
+            <div key={c.title} className="group bg-background p-7 transition-colors hover:bg-surface">
+              <span className="inline-flex size-11 items-center justify-center rounded-xl bg-accent/10 text-accent transition-transform group-hover:scale-110">
+                <c.icon className="size-5" strokeWidth={1.75} />
               </span>
-              <h3 className="mt-5 text-lg font-semibold text-ink">{c.title}</h3>
+              <h3 className="mt-5 font-display text-lg font-semibold text-ink">{c.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{c.body}</p>
             </div>
           ))}
@@ -274,10 +258,10 @@ function HomePage() {
             <Link
               key={s.title}
               to="/services"
-              className="group relative flex flex-col rounded-2xl border border-border bg-background p-7 shadow-soft transition-all hover:-translate-y-0.5 hover:border-border-strong hover:shadow-card"
+              className="group relative flex flex-col rounded-2xl border border-border bg-background p-7 shadow-soft transition-all hover:-translate-y-1 hover:border-border-strong hover:shadow-card"
             >
-              <span className="inline-flex size-11 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                <s.icon className="size-5" />
+              <span className="inline-flex size-11 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform group-hover:scale-110">
+                <s.icon className="size-5" strokeWidth={1.75} />
               </span>
               <h3 className="mt-5 font-display text-lg font-semibold text-ink">{s.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ink-soft">{s.body}</p>
@@ -317,13 +301,13 @@ function HomePage() {
             <Link
               key={i.name}
               to="/industries"
-              className="group flex items-center gap-3 rounded-2xl border border-border bg-background p-5 transition-all hover:border-border-strong hover:shadow-card"
+              className="group flex items-center gap-3 rounded-2xl border border-border bg-background p-5 transition-all hover:-translate-y-0.5 hover:border-border-strong hover:shadow-card"
             >
               <span className="inline-flex size-10 items-center justify-center rounded-xl bg-accent/10 text-accent">
-                <i.icon className="size-5" />
+                <i.icon className="size-5" strokeWidth={1.75} />
               </span>
               <span className="font-medium text-ink">{i.name}</span>
-              <ArrowUpRight className="ml-auto size-4 text-ink-muted transition-colors group-hover:text-ink" />
+              <ArrowUpRight className="ml-auto size-4 text-ink-muted transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-ink" />
             </Link>
           ))}
         </div>
@@ -338,22 +322,14 @@ function HomePage() {
         <EngagementModels />
       </Section>
 
-      {/* PROCESS */}
+      {/* PROCESS — ENTERPRISE JOURNEY ROADMAP */}
       <Section
         tone="dark"
-        eyebrow="Process"
-        title="A disciplined, transparent delivery model"
-        description="Each phase is structured, measurable, and designed to de-risk delivery."
+        eyebrow="Enterprise Journey"
+        title="A disciplined roadmap, from idea to scale"
+        description="Every engagement follows a structured, transparent progression — designed to de-risk delivery and unlock value at every milestone."
       >
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {process.map((p) => (
-            <div key={p.step} className="rounded-2xl border border-primary-foreground/10 bg-primary-foreground/[0.04] p-6">
-              <p className="font-display text-3xl font-bold text-success">{p.step}</p>
-              <h3 className="mt-2 text-lg font-semibold text-primary-foreground">{p.title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-primary-foreground/70">{p.body}</p>
-            </div>
-          ))}
-        </div>
+        <RoadmapProcess />
       </Section>
 
       {/* SECURITY & COMPLIANCE */}
@@ -375,59 +351,13 @@ function HomePage() {
         <TechPartners />
       </Section>
 
-      {/* COST CALCULATOR */}
-      <Section
-        id="estimate"
-        eyebrow="Project Estimator"
-        title="Get an instant project cost estimate"
-        description="Configure your project below to see an indicative price range. For a detailed proposal, share your requirements with our team."
-      >
-        <CostCalculator onRequestProposal={() => setProposalOpen(true)} />
-      </Section>
-
       {/* TESTIMONIALS */}
       <Section
-        tone="surface"
         eyebrow="Client Stories"
         title="What our partners say"
         description="Outcomes speak louder than words. Here's what teams we've built with have to say."
       >
         <TestimonialSlider />
-      </Section>
-
-      {/* DOWNLOAD CAPABILITY DECK */}
-      <Section>
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-surface to-background p-8 md:p-12">
-          <div aria-hidden className="absolute inset-0 hairline-grid opacity-40" />
-          <div className="relative grid gap-8 md:grid-cols-2 md:items-center">
-            <div>
-              <p className="eyebrow">Company Profile</p>
-              <h2 className="mt-3 font-display text-2xl font-semibold text-ink md:text-3xl">
-                Download the Govitrix capability deck
-              </h2>
-              <p className="mt-3 max-w-lg text-ink-soft">
-                A concise overview of who we are, our services, portfolio, technology stack, and
-                engagement models — everything you need to evaluate Govitrix as a partner.
-              </p>
-            </div>
-            <div className="flex flex-wrap items-center gap-3 md:justify-end">
-              <button
-                type="button"
-                onClick={() => setProposalOpen(true)}
-                className="inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow-soft hover:bg-secondary"
-              >
-                <Download className="size-4" /> Download Company Profile
-              </button>
-              <button
-                type="button"
-                onClick={() => setDiscoveryOpen(true)}
-                className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink hover:bg-surface"
-              >
-                Talk to us
-              </button>
-            </div>
-          </div>
-        </div>
       </Section>
 
       {/* INSIGHTS */}
@@ -442,7 +372,7 @@ function HomePage() {
             <Link
               key={p.title}
               to="/insights"
-              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition-all hover:shadow-card"
+              className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-background transition-all hover:-translate-y-1 hover:shadow-card"
             >
               <div className="relative h-44 overflow-hidden bg-gradient-to-br from-surface to-background">
                 <div aria-hidden className="absolute inset-0 hairline-grid opacity-50" />
