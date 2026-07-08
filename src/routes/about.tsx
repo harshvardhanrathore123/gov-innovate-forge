@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
+import {
+  ShieldCheck,
+  Sparkles,
+  Target,
+  Lightbulb,
+  TrendingUp,
+  Compass,
+  Puzzle,
+  BarChart3,
+} from "lucide-react";
 import { PageHero, Section, CTASection } from "../components/site/Section";
-import { Linkedin, Mail } from "lucide-react";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -9,7 +18,7 @@ export const Route = createFileRoute("/about")({
       {
         name: "description",
         content:
-          "Govitrix is a founder-led product engineering and technology consulting partner. Learn our story, mission, and team.",
+          "Govitrix is a founder-led product engineering and technology consulting partner. Learn our story, mission, and values.",
       },
       { property: "og:title", content: "About — Govitrix" },
       { property: "og:url", content: "/about" },
@@ -20,30 +29,30 @@ export const Route = createFileRoute("/about")({
 });
 
 const values = [
-  { title: "Craftsmanship", body: "We treat every line of code and pixel as our reputation." },
-  { title: "Partnership", body: "We win when our clients win — and we act like it." },
-  { title: "Clarity", body: "Plain language, honest tradeoffs, and visible progress." },
-  { title: "Outcomes", body: "We measure success by impact, not deliverables." },
-];
-
-const team = [
   {
-    name: "Harshvardhan Singh Rathore",
-    role: "Founder & CEO",
-    bio: "Leads company strategy, partnerships, and delivery. Focused on translating business ambition into engineered outcomes.",
-    focus: ["Product Strategy", "Digital Transformation", "Business Growth", "Innovation"],
-    message:
-      "Great software is a business decision before it is a technical one. Our job is to make that decision easy — with senior people, clear thinking, and honest tradeoffs.",
-    initials: "HR",
+    icon: ShieldCheck,
+    title: "Integrity",
+    body: "Honest, transparent, and accountable in every engagement.",
   },
   {
-    name: "Ujjwal Vaishnav",
-    role: "Co-Founder & CTO",
-    bio: "Leads engineering excellence, architecture, and platform strategy across all Govitrix engagements.",
-    focus: ["Software Architecture", "Product Engineering", "Cloud Technologies", "Technology Innovation"],
-    message:
-      "Every system we ship should be secure, observable, and easy to change. We optimize for long-term maintainability, not short-term velocity — because our clients live with what we build for years.",
-    initials: "UV",
+    icon: Sparkles,
+    title: "Curiosity",
+    body: "Always learning, always improving, always exploring.",
+  },
+  {
+    icon: Target,
+    title: "Precision",
+    body: "Delivering excellence through disciplined execution and attention to detail.",
+  },
+  {
+    icon: Lightbulb,
+    title: "Innovation",
+    body: "Challenging convention and building what's next.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Impact",
+    body: "Creating meaningful outcomes that generate lasting value.",
   },
 ];
 
@@ -54,86 +63,134 @@ function AboutPage() {
         eyebrow="About Govitrix"
         title="A founder-led technology partner for ambitious teams."
         description="Govitrix Corporation was founded on a simple belief: great products are built by senior teams that care deeply about both craft and outcomes."
+        image="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1920&q=70&auto=format&fit=crop"
       />
 
+      {/* MISSION & VISION */}
       <Section>
-        <div className="grid gap-10 lg:grid-cols-3">
-          <div className="rounded-3xl border border-border bg-background p-8 shadow-soft">
-            <p className="eyebrow">Our Mission</p>
-            <p className="mt-4 text-lg text-ink">
-              Help ambitious companies design, build, and scale intelligent digital products that
-              create lasting business value.
-            </p>
+        <div className="grid gap-6 lg:grid-cols-2">
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-primary p-10 text-primary-foreground shadow-soft">
+            <div aria-hidden className="absolute inset-0 hairline-grid opacity-[0.08]" />
+            <div aria-hidden className="soft-blur-orb -right-16 -top-16 h-56 w-56 bg-accent/40" />
+            <div className="relative">
+              <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/5 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-success">
+                <Compass className="size-3.5" /> Our Mission
+              </span>
+              <p className="mt-6 font-display text-2xl font-semibold leading-snug md:text-3xl">
+                Help ambitious companies design, build, and scale intelligent digital products that
+                create lasting business value.
+              </p>
+            </div>
           </div>
-          <div className="rounded-3xl border border-border bg-background p-8 shadow-soft">
-            <p className="eyebrow">Our Vision</p>
-            <p className="mt-4 text-lg text-ink">
-              To be the most trusted product engineering partner for founders and enterprises
-              modernizing how the world works.
-            </p>
-          </div>
-          <div className="rounded-3xl border border-border bg-background p-8 shadow-soft">
-            <p className="eyebrow">Our Story</p>
-            <p className="mt-4 text-ink-soft">
-              We started Govitrix to bring back craftsmanship to digital product delivery — small
-              senior teams, transparent process, and a long-term mindset.
-            </p>
+          <div className="relative overflow-hidden rounded-3xl border border-border bg-background p-10 shadow-soft">
+            <div aria-hidden className="absolute inset-0 hairline-grid opacity-40" />
+            <div className="relative">
+              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                <Sparkles className="size-3.5" /> Our Vision
+              </span>
+              <p className="mt-6 font-display text-2xl font-semibold leading-snug text-ink md:text-3xl">
+                To be the most trusted product engineering partner for founders and enterprises
+                modernizing how the world works.
+              </p>
+            </div>
           </div>
         </div>
       </Section>
 
-      <Section tone="surface" eyebrow="Core Values" title="What we hold ourselves to">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((v) => (
-            <div key={v.title} className="rounded-2xl border border-border bg-background p-6">
-              <h3 className="font-display text-lg font-semibold text-ink">{v.title}</h3>
-              <p className="mt-2 text-sm text-ink-soft">{v.body}</p>
+      {/* OUR STORY */}
+      <Section
+        tone="surface"
+        eyebrow="Our Story"
+        title="Craftsmanship, restored to digital product delivery."
+        description="Govitrix started because too many ambitious teams were being underserved by tech partners that scaled headcount faster than they scaled quality."
+      >
+        <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-3">
+          {[
+            {
+              year: "The origin",
+              title: "A conviction, not a pitch deck",
+              body: "Founded by senior engineers and product builders who had seen what mature technology partnerships look like — and what they don't.",
+            },
+            {
+              year: "The philosophy",
+              title: "Small, senior, accountable",
+              body: "We deliberately stay senior-heavy. Every engagement is staffed with people who have shipped products at scale — not layered management.",
+            },
+            {
+              year: "The trajectory",
+              title: "Global-quality, founder-led",
+              body: "Enterprise-grade rigor with the agility and ownership of a founder-led firm. We compete with global consultancies on quality, not scale.",
+            },
+          ].map((c) => (
+            <div key={c.title} className="rounded-2xl border border-border bg-background p-7">
+              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-accent">
+                {c.year}
+              </p>
+              <h3 className="mt-3 font-display text-lg font-semibold text-ink">{c.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{c.body}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      <Section eyebrow="Leadership" title="Founder-led, senior by default" description="Meet the people accountable for every engagement.">
-        <div className="grid gap-6 md:grid-cols-2">
-          {team.map((t) => (
+      {/* WHY / WHAT / HOW */}
+      <Section
+        eyebrow="Why Govitrix"
+        title="Built on purpose, focused on outcomes."
+        description="Three questions that shape everything we do — and everything we build for our clients."
+      >
+        <div className="grid gap-6 md:grid-cols-3">
+          {[
+            {
+              icon: Compass,
+              label: "Why Govitrix Exists",
+              body: "To give ambitious organizations a technology partner that combines the discipline of a global consultancy with the ownership and agility of a founder-led studio — without the layered overhead of either.",
+            },
+            {
+              icon: Puzzle,
+              label: "What Govitrix Solves",
+              body: "Ambitious ideas that stall because internal teams are stretched, external agencies deliver output but not outcomes, and legacy platforms can no longer keep up with the business.",
+            },
+            {
+              icon: BarChart3,
+              label: "How Govitrix Creates Value",
+              body: "Senior teams, opinionated architecture, transparent delivery, and measurable business impact — engineered from discovery through scale so every rupee, dollar, or euro compounds.",
+            },
+          ].map((b) => (
             <div
-              key={t.name}
-              className="flex flex-col gap-6 rounded-3xl border border-border bg-background p-8 shadow-soft"
+              key={b.label}
+              className="group flex flex-col rounded-3xl border border-border bg-background p-8 shadow-soft transition-all hover:-translate-y-1 hover:shadow-card"
             >
-              <div className="flex items-start gap-5">
-                <div className="flex size-20 shrink-0 items-center justify-center rounded-2xl bg-primary font-display text-2xl font-bold text-primary-foreground">
-                  {t.initials}
-                </div>
-                <div>
-                  <h3 className="font-display text-xl font-semibold text-ink">{t.name}</h3>
-                  <p className="mt-0.5 text-sm font-medium text-accent">{t.role}</p>
-                  <p className="mt-3 text-sm text-ink-soft">{t.bio}</p>
-                </div>
-              </div>
+              <span className="inline-flex size-12 items-center justify-center rounded-2xl bg-accent/10 text-accent transition-transform group-hover:scale-110">
+                <b.icon className="size-5" strokeWidth={1.75} />
+              </span>
+              <p className="mt-6 text-xs font-semibold uppercase tracking-[0.18em] text-ink-muted">
+                {b.label}
+              </p>
+              <p className="mt-3 text-base leading-relaxed text-ink">{b.body}</p>
+            </div>
+          ))}
+        </div>
+      </Section>
 
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wider text-ink-muted">Focus areas</p>
-                <div className="mt-2 flex flex-wrap gap-1.5">
-                  {t.focus.map((f) => (
-                    <span key={f} className="rounded-full border border-border bg-surface px-2.5 py-1 text-xs font-medium text-ink-soft">
-                      {f}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <blockquote className="rounded-2xl border border-border bg-surface p-5 text-sm italic leading-relaxed text-ink">
-                "{t.message}"
-              </blockquote>
-
-              <div className="flex items-center gap-2">
-                <a href="#" aria-label="LinkedIn" className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft hover:text-ink">
-                  <Linkedin className="size-4" />
-                </a>
-                <a href="#" aria-label="Email" className="inline-flex size-9 items-center justify-center rounded-lg border border-border text-ink-soft hover:text-ink">
-                  <Mail className="size-4" />
-                </a>
-              </div>
+      {/* CORE VALUES */}
+      <Section
+        tone="surface"
+        eyebrow="Core Values"
+        title="What we hold ourselves to."
+        description="Five principles that shape hiring, delivery, and every client conversation."
+      >
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
+          {values.map((v) => (
+            <div
+              key={v.title}
+              className="group flex flex-col rounded-2xl border border-border bg-background p-6 transition-all hover:-translate-y-1 hover:border-border-strong hover:shadow-card"
+            >
+              <span className="inline-flex size-11 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform group-hover:scale-110">
+                <v.icon className="size-5" strokeWidth={1.75} />
+              </span>
+              <h3 className="mt-5 font-display text-lg font-semibold text-ink">{v.title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-ink-soft">{v.body}</p>
             </div>
           ))}
         </div>
@@ -141,8 +198,7 @@ function AboutPage() {
 
       <CTASection
         title="Like how we think? Let's build together."
-        primary={{ label: "Book Discovery Call", to: "/contact" }}
-        secondary={{ label: "See our work", to: "/portfolio" }}
+        description="Book a free 30-minute discovery call to explore how Govitrix can help — or share your requirements through our contact form and we'll respond within one business day."
       />
     </>
   );

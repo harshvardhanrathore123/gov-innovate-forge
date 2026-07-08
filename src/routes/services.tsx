@@ -78,17 +78,25 @@ function ServicesPage() {
         eyebrow="Services"
         title="A complete partner for modern product engineering."
         description="From discovery to launch and ongoing growth — senior, opinionated teams that ship outcomes."
+        image="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1920&q=70&auto=format&fit=crop"
       >
         <div className="flex flex-wrap gap-3">
           <Link
             to="/contact"
-            className="inline-flex items-center gap-1.5 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-secondary"
+            className="group inline-flex items-center gap-1.5 rounded-xl bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all hover:-translate-y-0.5 hover:bg-secondary hover:shadow-elevated"
           >
-            Request a Proposal <ArrowUpRight className="size-4" />
+            Contact Us <ArrowUpRight className="size-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("govitrix:open-discovery"))}
+            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5 hover:bg-surface"
+          >
+            Book Discovery Call
+          </button>
           <Link
             to="/portfolio"
-            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink hover:bg-surface"
+            className="inline-flex items-center gap-1.5 rounded-xl border border-border bg-background px-5 py-3 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5 hover:bg-surface"
           >
             See client work
           </Link>
@@ -100,11 +108,11 @@ function ServicesPage() {
           {services.map((s) => (
             <div
               key={s.title}
-              className="flex flex-col rounded-3xl border border-border bg-background p-8 shadow-soft"
+              className="group flex flex-col rounded-3xl border border-border bg-background p-8 shadow-soft transition-all hover:-translate-y-1 hover:shadow-card"
             >
               <div className="flex items-start gap-5">
-                <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground">
-                  <s.icon className="size-5" />
+                <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground transition-transform group-hover:scale-110">
+                  <s.icon className="size-5" strokeWidth={1.75} />
                 </span>
                 <div>
                   <h3 className="font-display text-2xl font-semibold text-ink">{s.title}</h3>
@@ -121,9 +129,9 @@ function ServicesPage() {
               </ul>
               <Link
                 to="/contact"
-                className="mt-7 inline-flex w-fit items-center gap-1.5 rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-ink hover:bg-surface"
+                className="mt-7 inline-flex w-fit items-center gap-1.5 rounded-xl border border-border px-4 py-2.5 text-sm font-semibold text-ink transition-all hover:-translate-y-0.5 hover:bg-surface"
               >
-                Discuss your project <ArrowUpRight className="size-4" />
+                Contact Us <ArrowUpRight className="size-4" />
               </Link>
             </div>
           ))}
@@ -132,7 +140,7 @@ function ServicesPage() {
 
       <CTASection
         title="Not sure where to start?"
-        description="Book a free 30-minute consultation and we'll help map the right approach for your goals."
+        description="Book a free 30-minute discovery call and we'll help map the right approach for your goals. Prefer to share requirements first? Use our contact form."
       />
     </>
   );
